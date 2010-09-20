@@ -55,9 +55,7 @@ class FBWikiMacro(object):
 
 class LikeButton(WikiMacroBase, FBWikiMacro):
     """
-    The [http://developers.facebook.com/docs/reference/plugins/like Like button] lets
-    users share pages from your site back to their [http://facebook.com Facebook]
-    profile with one click.
+    The Like button lets users share pages from your site back to their Facebook profile with one click.
 
     Examples:
     {{{
@@ -66,6 +64,9 @@ class LikeButton(WikiMacroBase, FBWikiMacro):
     [[LikeButton(http://google.com,button)]]         # button layout
     [[LikeButton(http://google.com,box)]]            # box layout
     }}}
+
+    Check the [http://developers.facebook.com/docs/reference/plugins/like documentation]
+    for more information.
     """
 
     plugin_name = 'like'
@@ -98,9 +99,7 @@ class LikeButton(WikiMacroBase, FBWikiMacro):
 
 class ActivityFeed(WikiMacroBase, FBWikiMacro):
     """
-    The [http://developers.facebook.com/docs/reference/plugins/activity Activity Feed]
-    plugins displays the most interesting recent [http://facebook.com Facebook] activity
-    taking place on your site.
+    The Activity Feed plugin displays the most interesting recent Facebook activity taking place on your site.
 
     Examples:
     {{{
@@ -108,6 +107,9 @@ class ActivityFeed(WikiMacroBase, FBWikiMacro):
     [[ActivityFeed(http://google.com)]]              # google.com with recommendations
     [[ActivityFeed(http://google.com,false)]]        # without recommendations
     }}}
+
+    Check the [http://developers.facebook.com/docs/reference/plugins/activity documentation]
+    for more information.
     """
 
     plugin_name = 'activity'
@@ -139,18 +141,16 @@ class ActivityFeed(WikiMacroBase, FBWikiMacro):
 
 class Recommendations(ActivityFeed):
     """
-    The [http://developers.facebook.com/docs/reference/plugins/recommendations Recommendations]
-    plugin shows personalized [http://facebook.com Facebook] recommendations to your users.
-
-    To generate the recommendations, the plugin considers all the social interactions with
-    URLs from your site. For a logged in Facebook user, the plugin will give preference to
-    and highlight objects her friends have interacted with.
+    The Recommendations plugin shows personalized Facebook recommendations to your users.
 
     Examples:
     {{{
     [[Recommendations]]                                 # current page
     [[Recommendations(http://python.org)]]              # python.org
     }}}
+
+    Check the [http://developers.facebook.com/docs/reference/plugins/recommendations documentation]
+    for more information.
     """
 
     plugin_name = 'recommendations'
