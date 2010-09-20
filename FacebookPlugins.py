@@ -1,18 +1,28 @@
+# Copyright (c) 2010 The TracFacebookPlugins Project.
+# See LICENSE.txt for details.
+
 """
-@note: also support XFBML?
+Collection of Trac wiki macro's for Facebook's plugins.
+
+@see: http://developers.facebook.com/plugins
+@note: Also support XFBML?
 """
 
 from trac.core import Component
 from trac.wiki.macros import WikiMacroBase
 
 
+# project metadata
+revision = '0.1'
+author = "Thijs Triemstra"
+url = "http://trac-hacks.org"
+license = "MIT"
+
+
 class FacebookPlugins(Component):
     """
-    Support for Facebook plugins.
+    Support for Facebook plugins in Trac.
     """
-
-    revision = "$Rev$"
-    url = "$URL$"
 
     
 class LikeButton(WikiMacroBase):
@@ -30,16 +40,13 @@ class LikeButton(WikiMacroBase):
     }}}
     """
 
-    revision = "$Rev$"
-    url = "$URL$"
-
     def expand_macro(self, formatter, name, args):
         """
         @param name: the actual name of the macro
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = self.url
+        href = url
         layout = 'standard' # options: 'button_count', 'box_count'
         show_faces = 'true'
         width = '450'
@@ -73,16 +80,13 @@ class ActivityFeed(WikiMacroBase):
     }}}
     """
 
-    revision = "$Rev$"
-    url = "$URL$"
-
     def expand_macro(self, formatter, name, args):
         """
         @param name: the actual name of the macro
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = self.url
+        href = url
         width = '300'
         height = '300'
         header = 'true'
