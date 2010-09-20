@@ -10,7 +10,8 @@ Collection of Trac wiki macro's for Facebook's plugins.
 
 from trac.core import Component
 from trac.wiki.macros import WikiMacroBase
-
+from trac.resource import get_resource_url
+from trac.web.href import Href
 
 # project metadata
 revision = '0.1'
@@ -46,7 +47,7 @@ class LikeButton(WikiMacroBase):
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = url
+        href = self.env.project_url + get_resource_url(self.env, formatter.resource, formatter.href)
         layout = 'standard' # options: 'button_count', 'box_count'
         show_faces = 'true'
         width = '450'
@@ -54,7 +55,7 @@ class LikeButton(WikiMacroBase):
         colorscheme = 'light' # or 'dark'
         action = 'like' # or 'recommend'
         
-        if len(options) > 0:
+        if len(options) > 0 and options[0] != "None":
             href = options[0]
         
         if len(options) > 1:
@@ -86,14 +87,14 @@ class ActivityFeed(WikiMacroBase):
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = url
+        href = self.env.project_url + get_resource_url(self.env, formatter.resource, formatter.href)
         width = '300'
         height = '300'
         header = 'true'
         colorscheme = 'light' # or 'dark'
         recommendations = 'true'
 
-        if len(options) > 0:
+        if len(options) > 0 and options[0] != "None":
             href = options[0]
         
         if len(options) > 1:
