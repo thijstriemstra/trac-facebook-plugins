@@ -2,9 +2,10 @@
 # See LICENSE.txt for details.
 
 """
-Collection of Trac wiki macro's for Facebook's plugins.
+Collection of Trac wiki macro's for U{Facebook<http://facebook.com>}'s plugins.
 
 @see: http://developers.facebook.com/plugins
+@see: http://developers.facebook.com/docs/guides/web#plugins
 @note: Also support XFBML?
 """
 
@@ -25,8 +26,21 @@ class FacebookPlugins(Component):
     Support for Facebook plugins in Trac.
     """
 
+
+class FBWikiMacro(object):
+
+    fb_url = 'http://www.facebook.com/plugins'
     
-class LikeButton(WikiMacroBase):
+    def _abs_href(self, formatter):
+        """
+        Get absolute href for trac resource.
+        
+        @param formatter
+        """
+        return self.env.abs_href.base + get_resource_url(self.env, formatter.resource, formatter.href)
+
+    
+class LikeButton(WikiMacroBase, FBWikiMacro):
     """
     The [http://developers.facebook.com/docs/reference/plugins/like Like button] lets
     users share pages from your site back to their [http://facebook.com Facebook]
@@ -41,13 +55,15 @@ class LikeButton(WikiMacroBase):
     }}}
     """
 
+    plugin_name = 'like'
+
     def expand_macro(self, formatter, name, args):
         """
         @param name: the actual name of the macro
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = self.env.project_url + get_resource_url(self.env, formatter.resource, formatter.href)
+        href = self._abs_href(formatter)
         layout = 'standard' # options: 'button_count', 'box_count'
         show_faces = 'true'
         width = '450'
@@ -61,13 +77,13 @@ class LikeButton(WikiMacroBase):
         if len(options) > 1:
             layout = options[1] + "_count"
 
-        iframe_code = '<iframe src="http://www.facebook.com/plugins/like.php?href=%s&layout=%s&show_faces=%s&width=%s&action=%s&colorscheme=%s&height=%s" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:%spx; height:%spx;" allowTransparency="true"></iframe>' % (
-                       href, layout, show_faces, width, action, colorscheme, height, width, height)
+        iframe_code = '<iframe src="%s/%s.php?href=%s&layout=%s&show_faces=%s&width=%s&action=%s&colorscheme=%s&height=%s" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:%spx; height:%spx;" allowTransparency="true"></iframe>' % (
+                       self.fb_url, self.plugin_name, href, layout, show_faces, width, action, colorscheme, height, width, height)
         
         return iframe_code
 
 
-class ActivityFeed(WikiMacroBase):
+class ActivityFeed(WikiMacroBase, FBWikiMacro):
     """
     The [http://developers.facebook.com/docs/reference/plugins/activity Activity Feed]
     plugins displays the most interesting recent [http://facebook.com Facebook] activity
@@ -81,13 +97,15 @@ class ActivityFeed(WikiMacroBase):
     }}}
     """
 
+    plugin_name = 'activity'
+
     def expand_macro(self, formatter, name, args):
         """
         @param name: the actual name of the macro
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = self.env.project_url + get_resource_url(self.env, formatter.resource, formatter.href)
+        href = self._abs_href(formatter)
         width = '300'
         height = '300'
         header = 'true'
@@ -100,7 +118,7 @@ class ActivityFeed(WikiMacroBase):
         if len(options) > 1:
             recommendations = 'false'
 
-        iframe_code = '<iframe src="http://www.facebook.com/plugins/activity.php?site=%s&width=%s&height=%s&header=%s&colorscheme=%s&recommendations=%s" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:%spx; height:%spx;" allowTransparency="true"></iframe>' % (
-                       href, width, height, header, colorscheme, recommendations, width, height)
+        iframe_code = '<iframe src="%s/%s.php?site=%s&width=%s&height=%s&header=%s&colorscheme=%s&recommendations=%s" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:%spx; height:%spx;" allowTransparency="true"></iframe>' % (
+                       self.fb_url, self.plugin_name, href, width, height, header, colorscheme, recommendations, width, height)
         
         return iframe_code
