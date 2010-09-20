@@ -41,7 +41,7 @@ source_suffix = '.rst'
 
 # General substitutions.
 project = 'TracFacebookPlugins'
-url = 'http://github.com/collab-project/trac-facebook-plugins'
+url = 'http://trac-hacks.org/wiki/TracFacebookPluginsMacro'
 description = 'Trac support for Facebook plugins'
 copyright = "Copyright &#169; %s The <a href='%s'>%s</a> Project. All rights reserved." % (
             time.strftime('%Y'), url, project)
