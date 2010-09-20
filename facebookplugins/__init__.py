@@ -10,22 +10,8 @@ Collection of Trac wiki macro's for U{Facebook<http://facebook.com>}'s plugins.
 @note: Also support XFBML?
 """
 
-from trac.core import Component
 from trac.wiki.macros import WikiMacroBase
 from trac.resource import get_resource_url
-
-
-# project metadata
-revision = '0.1'
-author = "Thijs Triemstra"
-url = "http://trac-hacks.org"
-license = "MIT"
-
-
-class FacebookPlugins(Component):
-    """
-    Support for Facebook plugins in Trac.
-    """
 
 
 class FBWikiMacro(object):
