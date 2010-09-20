@@ -38,8 +38,7 @@ class FBWikiMacro(object):
 
         @param formatter
         """
-        return self.env.abs_href.base + get_resource_url(self.env,
-               formatter.resource, formatter.href)
+        return get_resource_url(self.env, formatter.resource, formatter.req.abs_href)
 
 
 class LikeButton(WikiMacroBase, FBWikiMacro):
