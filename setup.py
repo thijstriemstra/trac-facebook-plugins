@@ -10,7 +10,7 @@ setup(
     description='Support for Facebook plugins in Trac.',
     url='http://trac-hacks.org/wiki/TracFacebookPluginsMacro',
     license='MIT',
-    version='0.1a1',
+    version='0.2',
     packages=find_packages(exclude=['*.tests*']),
     entry_points = """
         [trac.plugins]

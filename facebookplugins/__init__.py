@@ -16,7 +16,7 @@ from trac.wiki.macros import WikiMacroBase
 from trac.resource import get_resource_url
 
 
-__all__ = ['LikeButton', 'ActivityFeed']
+__all__ = ['LikeButton', 'ActivityFeed', 'Recommendations']
 
 
 class FBWikiMacro(object):
@@ -135,3 +135,43 @@ class ActivityFeed(WikiMacroBase, FBWikiMacro):
               self.fb_url, self.plugin_name, href, width, height, header, colorscheme, recommendations)
 
         return self.iframe(src, width, height)
+
+
+class Recommendations(ActivityFeed):
+    """
+    The [http://developers.facebook.com/docs/reference/plugins/recommendations Recommendations]
+    plugin shows personalized [http://facebook.com Facebook] recommendations to your users.
+
+    To generate the recommendations, the plugin considers all the social interactions with
+    URLs from your site. For a logged in Facebook user, the plugin will give preference to
+    and highlight objects her friends have interacted with.
+
+    Examples:
+    {{{
+    [[Recommendations]]                                 # current page
+    [[Recommendations(http://python.org)]]              # python.org
+    }}}
+    """
+
+    plugin_name = 'recommendations'
+
+    def expand_macro(self, formatter, name, args):
+        """
+        @param name: the actual name of the macro
+        @param args: text enclosed in parenthesis at the call of the macro
+        """
+        options = unicode(args).split(",")
+        href = self.abs_href(formatter)
+        width = '300'
+        height = '300'
+        header = 'true'
+        colorscheme = 'light' # or 'dark'
+
+        if len(options) > 0 and options[0] != "None":
+            href = options[0]
+
+        src = "%s/%s.php?site=%s&width=%s&height=%s&header=%s&colorscheme=%s" % (
+              self.fb_url, self.plugin_name, href, width, height, header, colorscheme)
+
+        return self.iframe(src, width, height)
+

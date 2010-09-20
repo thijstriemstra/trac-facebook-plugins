@@ -47,10 +47,10 @@ copyright = "Copyright &#169; %s The <a href='%s'>%s</a> Project. All rights res
             time.strftime('%Y'), url, project)
 
 # The full version, including alpha/beta/rc tags.
-version = '0.1a1'
+version = '0.2'
 
 # The short X.Y version.
-release = '0.1'
+release = version
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
