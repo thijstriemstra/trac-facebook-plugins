@@ -11,7 +11,7 @@ Collection of Trac wiki macro's for Facebook's plugins.
 from trac.core import Component
 from trac.wiki.macros import WikiMacroBase
 from trac.resource import get_resource_url
-from trac.web.href import Href
+
 
 # project metadata
 revision = '0.1'
