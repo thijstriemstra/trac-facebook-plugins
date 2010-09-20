@@ -10,21 +10,47 @@ Collection of Trac wiki macro's for U{Facebook<http://facebook.com>}'s plugins.
 @note: Also support XFBML?
 """
 
+from genshi.builder import tag
+
 from trac.wiki.macros import WikiMacroBase
 from trac.resource import get_resource_url
 
 
-class FBWikiMacro(object):
+__all__ = ['LikeButton', 'ActivityFeed']
 
+
+class FBWikiMacro(object):
+    """
+    Helper class for Facebook wiki macro's.
+    """
+
+    #: Base url for Facebook's plugin scripts
     fb_url = 'http://www.facebook.com/plugins'
 
-    def _abs_href(self, formatter):
+    def abs_href(self, formatter):
         """
         Get absolute href for trac resource.
 
         @param formatter
         """
         return get_resource_url(self.env, formatter.resource, formatter.req.abs_href)
+
+
+    def iframe(self, src, width, height):
+        """
+        Create iframe.
+        
+        @param src:     URL to display in the iframe.
+        @type src:      ``str``
+        @param width:   Width of the frame.
+        @type width:    ``int``
+        @param height:  Height of the frame.
+        @type height:   ``int``
+        """
+        style = "border:none; overflow:hidden; width:%spx; height:%spx;" % (width, height)
+
+        return tag.iframe(src=src, scrolling="no", frameborder="0",
+                          style=style, allowTransparency="true")
 
 
 class LikeButton(WikiMacroBase, FBWikiMacro):
@@ -50,7 +76,7 @@ class LikeButton(WikiMacroBase, FBWikiMacro):
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = self._abs_href(formatter)
+        href = self.abs_href(formatter)
         layout = 'standard' # options: 'button_count', 'box_count'
         show_faces = 'true'
         width = '450'
@@ -64,10 +90,10 @@ class LikeButton(WikiMacroBase, FBWikiMacro):
         if len(options) > 1:
             layout = options[1] + "_count"
 
-        iframe_code = '<iframe src="%s/%s.php?href=%s&layout=%s&show_faces=%s&width=%s&action=%s&colorscheme=%s&height=%s" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:%spx; height:%spx;" allowTransparency="true"></iframe>' % (
-                       self.fb_url, self.plugin_name, href, layout, show_faces, width, action, colorscheme, height, width, height)
+        src = "%s/%s.php?href=%s&layout=%s&show_faces=%s&width=%s&action=%s&colorscheme=%s&height=%s" % (
+              self.fb_url, self.plugin_name, href, layout, show_faces, width, action, colorscheme, height)
 
-        return iframe_code
+        return self.iframe(src, width, height)
 
 
 class ActivityFeed(WikiMacroBase, FBWikiMacro):
@@ -92,7 +118,7 @@ class ActivityFeed(WikiMacroBase, FBWikiMacro):
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = self._abs_href(formatter)
+        href = self.abs_href(formatter)
         width = '300'
         height = '300'
         header = 'true'
@@ -105,7 +131,7 @@ class ActivityFeed(WikiMacroBase, FBWikiMacro):
         if len(options) > 1:
             recommendations = 'false'
 
-        iframe_code = '<iframe src="%s/%s.php?site=%s&width=%s&height=%s&header=%s&colorscheme=%s&recommendations=%s" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:%spx; height:%spx;" allowTransparency="true"></iframe>' % (
-                       self.fb_url, self.plugin_name, href, width, height, header, colorscheme, recommendations, width, height)
+        src = "%s/%s.php?site=%s&width=%s&height=%s&header=%s&colorscheme=%s&recommendations=%s" % (
+              self.fb_url, self.plugin_name, href, width, height, header, colorscheme, recommendations)
 
-        return iframe_code
+        return self.iframe(src, width, height)
