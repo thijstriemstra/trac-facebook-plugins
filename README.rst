@@ -3,8 +3,11 @@ Trac Facebook Plugins
 
 Trac_ wiki macros for `Facebook plugins`_.
 
-See `trac-hacks.org`_ for more details.
+- Source_
+- `Bugs/Feature Requests`_
+
 
 .. _Trac: http://trac.edgewall.org
 .. _Facebook plugins: http://developers.facebook.com/plugins
-.. _trac-hacks.org: http://trac-hacks.org/wiki/TracFacebookPluginsMacro
+.. _Bugs/Feature Requests: http://trac-hacks.org/wiki/TracFacebookPluginsMacro#BugsFeatureRequests
+.. _Source: http://trac-hacks.org/wiki/TracFacebookPluginsMacro#Source
