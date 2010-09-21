@@ -175,3 +175,56 @@ class Recommendations(ActivityFeed):
 
         return self.iframe(src, width, height)
 
+
+class LikeBox(WikiMacroBase, FBWikiMacro):
+    """
+    The Like Box is a social plugin that enables Facebook Page owners to attract and gain Likes from their own website.
+
+    Examples:
+    {{{
+    [[LikeBox]]                                                         # current page
+    [[LikeBox(http://www.facebook.com/sonicyouth)]]                     # Sonic Youth fanpage on Facebook without stream/header
+    [[LikeBox(http://www.facebook.com/sonicyouth,stream)]]              # with stream
+    [[LikeBox(http://www.facebook.com/sonicyouth,header)]]              # with header
+    [[LikeBox(http://www.facebook.com/sonicyouth,full)]]                # with stream and header
+    }}}
+
+    Check the [http://developers.facebook.com/docs/reference/plugins/like-box documentation]
+    for more information.
+    """
+
+    plugin_name = 'likebox'
+
+    def expand_macro(self, formatter, name, args):
+        """
+        @param name: the actual name of the macro
+        @param args: text enclosed in parenthesis at the call of the macro
+        """
+        options = unicode(args).split(",")
+        href = self.abs_href(formatter)
+        connections = '10'
+        width = '292'
+        height = '255'
+        header = 'false'
+        stream = 'false'
+
+        if len(options) > 0 and options[0] != "None":
+            href = options[0]
+
+        if len(options) > 1:
+            param = options[1]
+            
+            if param == "stream":
+                stream = 'true'
+                height = '555'
+            elif param == "header":
+                header = 'true'
+                height = '287'
+            elif param == "full":
+                stream = header = 'true'
+                height = '587'
+
+        src = "%s/%s.php?href=%s&connections=%s&stream=%s&header=%s&width=%s&height=%s" % (
+              self.fb_url, self.plugin_name, href, connections, stream, header, width, height)
+
+        return self.iframe(src, width, height)
