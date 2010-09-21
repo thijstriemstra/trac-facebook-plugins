@@ -60,7 +60,7 @@ class LikeButton(WikiMacroBase, FBWikiMacro):
 
     Examples:
     {{{
-    [[LikeButton]]                                   # current page
+    [[LikeButton]]                                   # current Trac page
     [[LikeButton(http://google.com)]]                # google.com with default layout
     [[LikeButton(http://google.com,button)]]         # button layout
     [[LikeButton(http://google.com,box)]]            # box layout
@@ -104,7 +104,7 @@ class ActivityFeed(WikiMacroBase, FBWikiMacro):
 
     Examples:
     {{{
-    [[ActivityFeed]]                                 # current page
+    [[ActivityFeed]]                                 # current Trac page
     [[ActivityFeed(http://google.com)]]              # google.com with recommendations
     [[ActivityFeed(http://google.com,false)]]        # without recommendations
     }}}
@@ -146,7 +146,7 @@ class Recommendations(ActivityFeed):
 
     Examples:
     {{{
-    [[Recommendations]]                                 # current page
+    [[Recommendations]]                                 # current Trac page
     [[Recommendations(http://python.org)]]              # python.org
     }}}
 
@@ -183,11 +183,10 @@ class LikeBox(WikiMacroBase, FBWikiMacro):
 
     Examples:
     {{{
-    [[LikeBox]]                                                         # current page
-    [[LikeBox(http://www.facebook.com/sonicyouth)]]                     # Sonic Youth fanpage on Facebook without stream/header
-    [[LikeBox(http://www.facebook.com/sonicyouth,stream)]]              # with stream
-    [[LikeBox(http://www.facebook.com/sonicyouth,header)]]              # with header
-    [[LikeBox(http://www.facebook.com/sonicyouth,full)]]                # with stream and header
+    [[LikeBox(sonicyouth)]]                     # Sonic Youth fanpage on Facebook without stream/header
+    [[LikeBox(sonicyouth,stream)]]              # with stream
+    [[LikeBox(sonicyouth,header)]]              # with header
+    [[LikeBox(sonicyouth,full)]]                # with stream and header
     }}}
 
     Check the [http://developers.facebook.com/docs/reference/plugins/like-box documentation]
@@ -202,7 +201,7 @@ class LikeBox(WikiMacroBase, FBWikiMacro):
         @param args: text enclosed in parenthesis at the call of the macro
         """
         options = unicode(args).split(",")
-        href = self.abs_href(formatter)
+        href = 'http://www.facebook.com/'
         connections = '10'
         width = '292'
         height = '255'
@@ -210,7 +209,7 @@ class LikeBox(WikiMacroBase, FBWikiMacro):
         stream = 'false'
 
         if len(options) > 0 and options[0] != "None":
-            href = options[0]
+            href += options[0]
 
         if len(options) > 1:
             param = options[1]
