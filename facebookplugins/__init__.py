@@ -16,7 +16,7 @@ from trac.wiki.macros import WikiMacroBase
 from trac.resource import get_resource_url
 
 
-__all__ = ['LikeButton', 'ActivityFeed', 'Recommendations']
+__all__ = ['LikeButton', 'ActivityFeed', 'Recommendations', 'LikeBox']
 
 
 class FBWikiMacro(object):
@@ -33,7 +33,8 @@ class FBWikiMacro(object):
 
         @param formatter
         """
-        return get_resource_url(self.env, formatter.resource, formatter.req.abs_href)
+        return get_resource_url(self.env, formatter.resource,
+                                formatter.req.abs_href)
 
 
     def iframe(self, src, width, height):
