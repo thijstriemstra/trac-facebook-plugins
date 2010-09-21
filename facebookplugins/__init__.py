@@ -2,12 +2,11 @@
 # See LICENSE.txt for details.
 
 """
-Collection of Trac wiki macro's for U{Facebook<http://facebook.com>}'s plugins.
+Collection of Trac wiki macro's for Facebook plugins.
 
-@see: http://developers.facebook.com/plugins
-@see: http://developers.facebook.com/docs/guides/web#plugins
-
-@note: Also support XFBML?
+See:
+ - http://developers.facebook.com/plugins
+ - http://developers.facebook.com/docs/guides/web#plugins
 """
 
 from genshi.builder import tag
@@ -23,6 +22,8 @@ class FBWikiMacro(object):
     """
     Helper class for Facebook wiki macro's.
     """
+
+    # XXX: add fbml support?
 
     #: Base url for Facebook's plugin scripts
     fb_url = 'http://www.facebook.com/plugins'
