@@ -19,7 +19,7 @@ import sys, os, time
 # documentation root, use os.path.abspath to make it absolute.
 sys.path.insert(0, os.path.abspath('..'))
 sys.path.append(os.path.abspath('.'))
-#sys.path.append(os.path.abspath('html'))
+sys.path.append(os.path.abspath('html'))
 
 # -- General configuration -----------------------------------------------------
 
@@ -31,13 +31,17 @@ needs_sphinx = '1.0'
 extensions = ['sphinx.ext.intersphinx']
 
 # Paths that contain additional templates, relative to this directory.
-#templates_path = ['html']
+templates_path = ['html']
 
 # The suffix of source filenames.
 source_suffix = '.rst'
 
 # The encoding of source files.
 #source_encoding = 'utf-8'
+
+# create content template for the homepage
+from util import rst2html
+readme = rst2html('../README.rst', 'html/intro.html')
 
 # General substitutions.
 project = 'TracFacebookPlugins'
@@ -108,7 +112,7 @@ html_title = project
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-#html_static_path = ['html/static']
+html_static_path = ['html/static']
 
 # The name of an image file (.ico) that is the favicon of the docs.
 #html_favicon = 'html/static/favicon.ico'
@@ -123,9 +127,9 @@ html_last_updated_fmt = '%b %d, %Y'
 
 # Additional templates that should be rendered to pages, maps page names to
 # template names.
-#html_additional_pages = {
-#    'index': 'defindex.html',
-#}
+html_additional_pages = {
+    'index': 'defindex.html',
+}
 
 # If false, no module index is generated.
 html_use_modindex = True

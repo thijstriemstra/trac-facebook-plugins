@@ -2,3 +2,4 @@
 *.egg-info
 doc/build
 doc/themes
+doc/html/intro.html
